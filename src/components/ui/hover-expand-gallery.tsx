@@ -41,8 +41,17 @@ export type HoverExpandGalleryProps = {
    * inside whatever is left over.
    */
   maxOpenWidth?: number
-  /** Height of the open panel's image below 1024px, in px. */
+  /**
+   * Height of the open panel's image in the stacked layout, in px — below
+   * 1024px, or at every width when `orientation` is `"vertical"`.
+   */
   mobileImageHeight?: number
+  /**
+   * `"horizontal"` (default) lays the panels side by side from 1024px up, with
+   * rotated labels. `"vertical"` keeps the stacked accordion at every width:
+   * full-width rows that open downward.
+   */
+  orientation?: "horizontal" | "vertical"
   /** Which panel starts open. */
   defaultIndex?: number
   /** Open/close duration, in ms. */
@@ -72,6 +81,7 @@ export default function HoverExpandGallery({
   railWidth = 64,
   maxOpenWidth = 520,
   mobileImageHeight = 420,
+  orientation = "horizontal",
   defaultIndex = 0,
   duration = 620,
   onChange,
@@ -92,12 +102,17 @@ export default function HoverExpandGallery({
     "--hx-t": `${duration}ms`,
   } as React.CSSProperties
 
+  // Every lg: class below builds the side-by-side layout; "vertical" drops them
+  // and keeps the stacked accordion, only scaled up for wide screens.
+  const vertical = orientation === "vertical"
+  const ease = "ease-[cubic-bezier(0.32,0.72,0,1)]"
+
   return (
     <section
       style={rootVars}
-      className={`relative w-full bg-background text-foreground lg:h-[var(--hx-h)] lg:overflow-hidden ${className}`}
+      className={`relative w-full bg-background text-foreground ${vertical ? "" : "lg:h-[var(--hx-h)] lg:overflow-hidden"} ${className}`}
     >
-      <ul className="flex w-full flex-col lg:h-full lg:flex-row lg:justify-center">
+      <ul className={`flex w-full flex-col ${vertical ? "" : "lg:h-full lg:flex-row lg:justify-center"}`}>
         {items.map((item, index) => {
           const isActive = index === active
           const panelVars = {
@@ -105,7 +120,10 @@ export default function HoverExpandGallery({
             // Growing into the free space instead would need a max-width to
             // stay a portrait strip, and the clamp eats most of the travel —
             // the panel reaches its cap early and reads as a snap.
-            // Mobile: the image block's height animates instead.
+            // Mobile (and vertical): the image block's height animates instead.
+            // Each row's image sits above its label, so when the row below the
+            // open one is hovered, one image shrinks as the other grows and the
+            // label under the pointer stays put — no hover cascade.
             "--hx-basis": isActive ? "var(--hx-max)" : "var(--hx-rail)",
             "--hx-img-h": isActive ? `${mobileImageHeight}px` : "0px",
             "--hx-img-o": isActive ? 1 : 0,
@@ -115,7 +133,11 @@ export default function HoverExpandGallery({
             <li
               key={`${item.title}-${index}`}
               style={panelVars}
-              className="relative border-b border-border last:border-b-0 lg:h-full lg:min-w-0 lg:border-b-0 lg:border-l lg:last:border-r lg:[flex-basis:var(--hx-basis)] lg:[flex-grow:0] lg:[flex-shrink:1] lg:transition-[flex-basis] lg:duration-[var(--hx-t)] lg:ease-[cubic-bezier(0.32,0.72,0,1)] lg:motion-reduce:transition-none"
+              className={`relative border-b border-border last:border-b-0 ${
+                vertical
+                  ? ""
+                  : `lg:h-full lg:min-w-0 lg:border-b-0 lg:border-l lg:last:border-r lg:[flex-basis:var(--hx-basis)] lg:[flex-grow:0] lg:[flex-shrink:1] lg:transition-[flex-basis] lg:duration-[var(--hx-t)] lg:ease-[cubic-bezier(0.32,0.72,0,1)] lg:motion-reduce:transition-none`
+              }`}
             >
               <button
                 type="button"
@@ -126,14 +148,20 @@ export default function HoverExpandGallery({
                 }}
                 onFocus={() => open(index)}
                 onClick={() => open(index)}
-                className="group relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foreground/40 lg:h-full lg:overflow-hidden"
+                className={`group relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foreground/40 ${
+                  vertical ? "" : "lg:h-full lg:overflow-hidden"
+                }`}
               >
                 {/* Image. In flow below 1024px (its height animates); pinned to
                     the panel above it (the panel's width animates under it). */}
                 <span
                   aria-hidden={!isActive}
                   style={{ background: item.accent, opacity: "var(--hx-img-o)" }}
-                  className="block h-[var(--hx-img-h)] w-full overflow-hidden transition-[height,opacity] duration-[var(--hx-t)] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none lg:absolute lg:inset-y-2 lg:left-[var(--hx-rail)] lg:right-3 lg:h-auto lg:w-auto lg:rounded-[10px] lg:transition-opacity"
+                  className={`block h-[var(--hx-img-h)] w-full overflow-hidden transition-[height,opacity] duration-[var(--hx-t)] ${ease} motion-reduce:transition-none ${
+                    vertical
+                      ? ""
+                      : "lg:absolute lg:inset-y-2 lg:left-[var(--hx-rail)] lg:right-3 lg:h-auto lg:w-auto lg:rounded-[10px] lg:transition-opacity"
+                  }`}
                 >
                   {item.src ? (
                     <img
@@ -146,19 +174,28 @@ export default function HoverExpandGallery({
                   ) : null}
                 </span>
 
-                {/* Label. A row below 1024px; above it a rail down the left of
-                    the panel — title at the bottom, meta at the top. */}
+                {/* Label. A row below 1024px (and always when vertical); above it
+                    a rail down the left of the panel — title at the bottom, meta
+                    at the top. */}
                 <span
-                  className={`flex h-16 w-full items-center justify-between gap-3 overflow-hidden px-5 text-[14px] tracking-tight transition-colors duration-[var(--hx-t)] ease-out motion-reduce:transition-none lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-[var(--hx-rail)] lg:flex-col-reverse lg:justify-between lg:px-0 lg:py-5 ${
-                    isActive ? "text-foreground" : "text-foreground/40"
-                  }`}
+                  className={`flex h-16 w-full items-center justify-between gap-3 overflow-hidden px-5 text-[14px] tracking-tight transition-colors duration-[var(--hx-t)] ease-out motion-reduce:transition-none ${
+                    vertical
+                      ? "lg:h-20 lg:px-8 lg:text-2xl lg:font-medium lg:tracking-[-0.03em]"
+                      : "lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-[var(--hx-rail)] lg:flex-col-reverse lg:justify-between lg:px-0 lg:py-5"
+                  } ${isActive ? "text-foreground" : "text-foreground/40 hover:text-foreground/70"}`}
                 >
-                  <span className="truncate lg:overflow-hidden lg:rotate-180 lg:whitespace-nowrap lg:[writing-mode:vertical-rl]">
+                  <span
+                    className={`truncate ${vertical ? "" : "lg:overflow-hidden lg:rotate-180 lg:whitespace-nowrap lg:[writing-mode:vertical-rl]"}`}
+                  >
                     {item.title}
                   </span>
                   <span
                     style={{ opacity: isActive && item.meta ? 1 : 0 }}
-                    className="shrink-0 text-[13px] font-medium transition-opacity duration-[var(--hx-t)] ease-out motion-reduce:transition-none lg:rotate-180 lg:whitespace-nowrap lg:[writing-mode:vertical-rl]"
+                    className={`shrink-0 text-[13px] font-medium transition-opacity duration-[var(--hx-t)] ease-out motion-reduce:transition-none ${
+                      vertical
+                        ? "lg:font-mono lg:text-xs lg:font-normal lg:uppercase lg:tracking-[0.15em]"
+                        : "lg:rotate-180 lg:whitespace-nowrap lg:[writing-mode:vertical-rl]"
+                    }`}
                   >
                     {item.meta}
                   </span>
@@ -173,11 +210,13 @@ export default function HoverExpandGallery({
                   aria-hidden={!isActive}
                   inert={!isActive}
                   style={{ opacity: "var(--hx-img-o)" }}
-                  className={`absolute inset-x-0 top-0 h-[var(--hx-img-h)] overflow-hidden transition-[height,opacity] duration-[var(--hx-t)] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none lg:inset-x-auto lg:inset-y-2 lg:left-[var(--hx-rail)] lg:right-3 lg:h-auto lg:rounded-[10px] lg:transition-opacity ${
-                    isActive ? "" : "pointer-events-none"
-                  }`}
+                  className={`absolute inset-x-0 top-0 h-[var(--hx-img-h)] overflow-hidden transition-[height,opacity] duration-[var(--hx-t)] ${ease} motion-reduce:transition-none ${
+                    vertical
+                      ? ""
+                      : "lg:inset-x-auto lg:inset-y-2 lg:left-[var(--hx-rail)] lg:right-3 lg:h-auto lg:rounded-[10px] lg:transition-opacity"
+                  } ${isActive ? "" : "pointer-events-none"}`}
                 >
-                  <div className="h-full w-full lg:w-[calc(var(--hx-max)-var(--hx-rail)-12px)]">
+                  <div className={`h-full w-full ${vertical ? "" : "lg:w-[calc(var(--hx-max)-var(--hx-rail)-12px)]"}`}>
                     {item.content}
                   </div>
                 </div>

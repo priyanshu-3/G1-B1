@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail, MapPin } from "lucide-react"
+import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react"
 import { siGithub } from "simple-icons"
 import { profile } from "@/data/profile"
 import { brandIcon, LinkedInIcon } from "@/lib/brand-icons"
@@ -9,15 +9,15 @@ const links = [
   { label: "Email", href: `mailto:${profile.email}`, icon: Mail },
   { label: "LinkedIn", href: profile.linkedin, icon: LinkedInIcon },
   { label: "GitHub", href: profile.github, icon: GithubIcon },
+  { label: "Resume", href: profile.resume, icon: Download },
 ]
 
 export function Contact() {
   return (
     <section id="contact" className="px-2 pb-2 md:px-3 md:pb-3">
       <div className="relative overflow-hidden rounded-2xl border bg-card md:rounded-[2rem]">
-        <div className="noise-overlay pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay" />
+        <div className="noise-overlay pointer-events-none absolute inset-0 opacity-10 mix-blend-overlay dark:opacity-30" />
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 md:px-10 md:py-32">
-          <p className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">05 — Contact</p>
           <h2 className="text-[13vw] font-medium leading-[0.9] tracking-[-0.06em] md:text-[9vw]">
             Let&rsquo;s build
             <br />
@@ -37,7 +37,7 @@ export function Contact() {
               <a
                 key={label}
                 href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
+                target={href.startsWith("mailto:") ? undefined : "_blank"}
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm transition-colors hover:bg-foreground hover:text-background"
               >

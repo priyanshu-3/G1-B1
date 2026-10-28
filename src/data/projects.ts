@@ -24,7 +24,7 @@ export const projects: Project[] = [
     highlights: [
       "Appointments, patient records, billing, invoices and doctor allocation",
       "20+ documented FastAPI endpoints secured with JWT and RBAC",
-      "Dockerised on an Azure VM behind Nginx with SSL and CI/CD",
+      "Dockerized on an Azure VM behind Nginx with SSL and CI/CD",
     ],
     stack: ["FastAPI", "Next.js", "PostgreSQL", "Docker", "Azure", "Nginx"],
     accent: "radial-gradient(120% 80% at 80% 0%,#2f6b5f 0%,#123029 45%,#0b1613 100%)",
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     summary: "Full-stack bookstore with a customer storefront and an admin console.",
     highlights: [
       "Role-based access: customers buy, admins manage inventory",
-      "MySQL-backed catalogue with server-side search and filtering",
+      "MySQL-backed catalog with server-side search and filtering",
       "JWT sessions, bcrypt hashing and transaction history",
     ],
     stack: ["Node.js", "Express", "MySQL", "JWT", "Tailwind CSS"],

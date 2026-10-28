@@ -92,6 +92,8 @@ export interface PrismaHeroProps {
   description?: React.ReactNode;
   navItems?: HeroNavItem[];
   cta?: HeroNavItem;
+  /** Replaces the default call-to-action pill with any element. */
+  action?: React.ReactNode;
   videoSrc?: string;
   id?: string;
 }
@@ -105,6 +107,7 @@ const PrismaHero = ({
   description = "Prisma is a worldwide network of visual artists, filmmakers and storytellers bound not by place, status or labels but by passion and hunger to unlock potential through our unique perspectives.",
   navItems = DEFAULT_NAV,
   cta = { label: "Join the lab", href: "#" },
+  action,
   videoSrc = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4",
   id,
 }: PrismaHeroProps) => {
@@ -162,16 +165,27 @@ const PrismaHero = ({
 
             <div className="col-span-12 flex flex-col gap-5 pb-6 lg:col-span-4 lg:pb-10">
 
-              <motion.p
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="text-xs text-primary/70 sm:text-sm md:text-base"
-                style={{ lineHeight: 1.2 }}
-              >
-                {description}
-              </motion.p>
+              {description ? (
+                <motion.p
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-xs text-primary/70 sm:text-sm md:text-base"
+                  style={{ lineHeight: 1.2 }}
+                >
+                  {description}
+                </motion.p>
+              ) : null}
 
+              {action ? (
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {action}
+                </motion.div>
+              ) : (
               <motion.a
                 href={cta.href}
                 initial={{ y: 20, opacity: 0 }}
@@ -184,6 +198,7 @@ const PrismaHero = ({
                   <ArrowRight className="h-4 w-4" style={{ color: "#E1E0CC" }} />
                 </span>
               </motion.a>
+              )}
 
             </div>
           </div>

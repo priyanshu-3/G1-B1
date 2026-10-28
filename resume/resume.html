@@ -1,0 +1,314 @@
+<!doctype html>
+<!--
+  Source for public/Jatin_Bisht_Resume.pdf.
+  To regenerate: open this file in Chrome → Print → Save as PDF, A4, margins "None",
+  "Background graphics" on. Keep it to one page.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Jatin Bisht — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      :root {
+        --ink: #17171a;
+        --soft: #4a4a52;
+        --faint: #8a8a93;
+        --rule: #dcdce0;
+        --accent: #1f4e5f;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        background: #fff;
+      }
+      body {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 12mm 14mm 10mm;
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+        font-size: 9.3pt;
+        line-height: 1.4;
+        color: var(--ink);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        padding-bottom: 3mm;
+        border-bottom: 1.5px solid var(--ink);
+      }
+      h1 {
+        font-size: 25pt;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .role {
+        margin-top: 2mm;
+        font-size: 10.5pt;
+        font-weight: 500;
+        color: var(--accent);
+      }
+      .contact {
+        margin-top: 1.6mm;
+        font-size: 8.6pt;
+        color: var(--soft);
+      }
+      .contact span + span::before {
+        content: "·";
+        margin: 0 1.6mm;
+        color: var(--faint);
+      }
+
+      section {
+        margin-top: 3.4mm;
+      }
+      h2 {
+        font-size: 8pt;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        padding-bottom: 1.2mm;
+        margin-bottom: 2mm;
+        border-bottom: 1px solid var(--rule);
+      }
+      p.summary {
+        color: var(--soft);
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: 29mm 1fr;
+        row-gap: 0.5mm;
+      }
+      .skills dt {
+        font-weight: 600;
+      }
+      .skills dd {
+        color: var(--soft);
+      }
+
+      .item + .item {
+        margin-top: 2.2mm;
+      }
+      .item-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      .item-title {
+        font-weight: 600;
+      }
+      .item-title .org {
+        font-weight: 400;
+        color: var(--soft);
+      }
+      .when {
+        flex-shrink: 0;
+        font-size: 8.6pt;
+        color: var(--faint);
+        font-variant-numeric: tabular-nums;
+      }
+      .stack {
+        font-size: 8.4pt;
+        font-weight: 400;
+        color: var(--accent);
+      }
+      .stack::before {
+        content: "|";
+        margin: 0 1.6mm;
+        color: var(--rule);
+      }
+      ul {
+        margin-top: 0.6mm;
+        padding-left: 4mm;
+      }
+      li {
+        color: var(--soft);
+      }
+      li + li {
+        margin-top: 0.2mm;
+      }
+      li::marker {
+        color: var(--faint);
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7mm;
+      }
+      .line {
+        display: flex;
+        justify-content: space-between;
+        gap: 4mm;
+      }
+      .line + .line {
+        margin-top: 0.6mm;
+      }
+      .line .sub {
+        color: var(--soft);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Jatin Bisht</h1>
+      <p class="role">Full-Stack Software Engineer · Python · FastAPI · React.js · Next.js · Cloud &amp; DevOps</p>
+      <p class="contact">
+        <span>Mumbai, India</span>
+        <span><a href="mailto:Jatinborabisht@gmail.com">jatinborabisht@gmail.com</a></span>
+        <span><a href="https://www.linkedin.com/in/jatin-bisht-1b6a3b419">linkedin.com/in/jatin-bisht-1b6a3b419</a></span>
+        <span><a href="https://github.com/jatinborabisht">github.com/jatinborabisht</a></span>
+      </p>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p class="summary">
+        Full-stack engineer who builds and ships production web apps with Python, FastAPI, React.js and Next.js, and
+        deploys them with Docker, GitHub Actions and Nginx on Azure and GCP. Delivered a live clinic-management system
+        for a Mumbai client with 20+ documented REST APIs, JWT auth and RBAC. Certified in Gen AI for test automation.
+      </p>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <dl class="skills">
+        <dt>Languages</dt>
+        <dd>Python, JavaScript (ES6+), TypeScript, Java, SQL, Bash</dd>
+        <dt>Frontend</dt>
+        <dd>React.js, Next.js, SvelteKit, Vite, Tailwind CSS, HTML5, CSS3, responsive design</dd>
+        <dt>Backend &amp; APIs</dt>
+        <dd>FastAPI, Node.js, Express, REST, Swagger/OpenAPI, JWT, RBAC, Prisma, Microsoft Teams bots</dd>
+        <dt>Databases</dt>
+        <dd>PostgreSQL, MySQL, SQLite — relational schema design and query optimization</dd>
+        <dt>Cloud &amp; DevOps</dt>
+        <dd>Azure VMs, GCP, Docker, GitHub Actions, Nginx, SSL/TLS, DNS, Linux, Vercel, Render</dd>
+        <dt>Testing &amp; AI</dt>
+        <dd>Vitest, Playwright, Postman, Testsigma, AI-assisted test automation, prompt engineering</dd>
+        <dt>Practices</dt>
+        <dd>Git, Agile/Scrum, data structures &amp; algorithms, OOP, system design, performance optimization</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="item">
+        <div class="item-head">
+          <p class="item-title">Junior Software Engineer <span class="org">· Aarama Ventures Pvt. LLP, Mumbai</span></p>
+          <p class="when">Mar 2026 – Present</p>
+        </div>
+        <ul>
+          <li>Build and ship production full-stack applications with Python, FastAPI, React.js, Next.js, Vite and Node.js.</li>
+          <li>Design and document REST APIs in Swagger/OpenAPI, giving frontend and client teams one testable reference.</li>
+          <li>Own the release path — GitHub Actions CI/CD, Docker images, and hosting on Azure VMs and GCP.</li>
+          <li>Configure Nginx reverse proxy, load balancing, SSL/TLS and domain routing, improving deployment reliability.</li>
+          <li>Contribute to sprint planning, code reviews and iterative delivery in an Agile/Scrum team.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="item-head">
+          <p class="item-title">Developer Intern <span class="org">· ExclCloud, Bengaluru</span></p>
+          <p class="when">Dec 2024 – Feb 2025</p>
+        </div>
+        <ul>
+          <li>Shipped features across core product modules with SvelteKit and Node.js.</li>
+          <li>Optimized backend logic and data-processing workflows to improve performance and responsiveness.</li>
+          <li>Built and deployed a Microsoft Teams bot on REST APIs that automated employee reward tracking.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <div class="item">
+        <div class="item-head">
+          <p class="item-title">ManageAll — Dental Clinic Management<span class="stack">FastAPI, Next.js, PostgreSQL, Docker, Azure</span></p>
+          <p class="when">Client · Live</p>
+        </div>
+        <ul>
+          <li>Shipped appointments, patient records, billing, invoicing and doctor allocation for a Mumbai clinic.</li>
+          <li>Developed, documented and tested 20+ REST APIs on PostgreSQL, secured with JWT and RBAC.</li>
+          <li>Deployed on an Azure VM with Docker, Nginx, SSL, domain routing and CI/CD for faster, low-risk releases.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="item-head">
+          <p class="item-title">Pastebin Lite<span class="stack">Next.js, TypeScript, Prisma, PostgreSQL, Vitest, Playwright</span></p>
+          <p class="when"><a href="https://pastebin-lite-beta.vercel.app">Live</a> · <a href="https://github.com/jatinborabisht/Pastebin-lite">GitHub</a></p>
+        </div>
+        <ul>
+          <li>Built a snippet-sharing app whose pastes expire after a time limit or a set number of views; deployed on Vercel.</li>
+          <li>Covered it with unit tests in Vitest and end-to-end tests in Playwright.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="item-head">
+          <p class="item-title">Online Bookstore — E-Commerce<span class="stack">Node.js, Express, MySQL, JWT</span></p>
+          <p class="when"><a href="https://github.com/jatinborabisht/Online-Bookstore">GitHub</a></p>
+        </div>
+        <ul>
+          <li>Built customer and admin roles, MySQL inventory, and server-side search and filtering; deployed on Render.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="item-head">
+          <p class="item-title">Restaurant Menu<span class="stack">SvelteKit, Tailwind CSS, Vercel</span></p>
+          <p class="when"><a href="https://github.com/jatinborabisht/Restaurantmenu">GitHub</a></p>
+        </div>
+        <ul>
+          <li>Built a responsive, mobile-first menu with dynamic category filtering.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div>
+        <h2>Education</h2>
+        <div class="line">
+          <p><span class="item-title">MCA</span> <span class="sub">· CMR University</span></p>
+          <p class="when">2023 – 2025</p>
+        </div>
+        <div class="line">
+          <p><span class="item-title">BCA</span> <span class="sub">· Amrapali Group of Institutes</span></p>
+          <p class="when">2020 – 2023</p>
+        </div>
+      </div>
+      <div>
+        <h2>Certifications</h2>
+        <div class="line">
+          <p><span class="item-title">Gen AI Capabilities</span> <span class="sub">· Testsigma</span></p>
+          <p class="when">Sep 2026</p>
+        </div>
+        <div class="line">
+          <p><span class="item-title">Programming in Java</span> <span class="sub">· NPTEL, IIT</span></p>
+          <p class="when">Oct 2024</p>
+        </div>
+        <div class="line">
+          <p><span class="item-title">AWS Billing &amp; Cost Management</span> <span class="sub">· AWS</span></p>
+          <p class="when">Dec 2023</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

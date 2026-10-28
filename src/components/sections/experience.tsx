@@ -4,7 +4,7 @@ import { certifications, education, experience } from "@/data/profile"
 export function Experience() {
   return (
     <section id="experience" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:px-10 md:py-32">
-      <SectionHeading index="04" label="Experience" title="Where I've worked." />
+      <SectionHeading title="Where I've worked." />
 
       <ol className="border-t">
         {experience.map((role) => (

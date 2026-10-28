@@ -1,18 +1,35 @@
 @import "tailwindcss";
 
-/* shadcn-style tokens. The site is dark-only: the hero video, the cream
-   accent and the gallery rails are all tuned against a near-black ground. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* shadcn-style tokens. Light is the base; `.dark` on <html> swaps them (set
+   before paint by the inline script in index.html). `--primary` stays cream in
+   both themes — it is only ever drawn on the video and on the dark project
+   overlays. */
 :root {
+  --background: #f5f3ec;
+  --foreground: #141412;
+  --card: #ebe8de;
+  --muted: #e6e2d6;
+  --muted-foreground: rgba(20, 20, 18, 0.58);
+  --primary: #e1e0cc;
+  --primary-foreground: #0d0d0c;
+  --border: rgba(20, 20, 18, 0.12);
+  --ring: rgba(20, 20, 18, 0.4);
+  --panel: #e6e0cf;
+  --radius: 1rem;
+  color-scheme: light;
+}
+
+.dark {
   --background: #0d0d0c;
   --foreground: #e1e0cc;
   --card: #151513;
   --muted: #1c1c19;
   --muted-foreground: rgba(225, 224, 204, 0.55);
-  --primary: #e1e0cc;
-  --primary-foreground: #0d0d0c;
   --border: rgba(225, 224, 204, 0.12);
   --ring: rgba(225, 224, 204, 0.4);
-  --radius: 1rem;
+  --panel: #e9e4d6;
   color-scheme: dark;
 }
 
@@ -26,6 +43,7 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
+  --color-panel: var(--panel);
   --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
@@ -39,10 +57,11 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    transition: background-color 300ms ease, color 300ms ease;
   }
   ::selection {
-    background: var(--primary);
-    color: var(--primary-foreground);
+    background: var(--foreground);
+    color: var(--background);
   }
 }
 

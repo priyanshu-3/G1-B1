@@ -66,7 +66,7 @@ export const skillModules: TechModule[] = [
   block("postgres", "PostgreSQL", "Relational data", brandIcon(siPostgresql), 4, INDIGO, "blue"),
   block("actions", "GH Actions", "CI/CD pipelines", brandIcon(siGithubactions), 4, INK, "blue"),
   block("node", "Node.js", "JavaScript runtime", brandIcon(siNodedotjs), 2, GREEN, "green"),
-  block("docker", "Docker", "Containerised services", brandIcon(siDocker), 2, SKY, "blue"),
+  block("docker", "Docker", "Containerized services", brandIcon(siDocker), 2, SKY, "blue"),
   block("azure", "Azure", "VM hosting", AzureIcon, 2, BLUE, "blue"),
   block("nginx", "Nginx", "Reverse proxy, SSL, load balancing", brandIcon(siNginx), 2, GREEN, "green"),
   block("tailwind", "Tailwind", "Utility-first CSS", brandIcon(siTailwindcss), 2, CYAN, "blue"),

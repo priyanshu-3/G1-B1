@@ -6,9 +6,9 @@ import { skillModules } from "@/data/skills"
 export function Skills() {
   return (
     <section id="skills" className="px-2 py-8 md:px-3">
-      <div className="rounded-2xl bg-[#e9e4d6] text-[#141412] md:rounded-[2rem]">
+      <div className="rounded-2xl border border-black/5 bg-panel text-[#141412] md:rounded-[2rem] dark:border-transparent">
         <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 md:px-10 md:pt-28">
-          <SectionHeading index="03" label="Skills" title="Build my stack.">
+          <SectionHeading title="Build my stack.">
             Every block is something I use in production. Click one to snap it onto the profile — click it again to pull it
             off.
           </SectionHeading>
@@ -28,7 +28,7 @@ export function Skills() {
           <p className="mb-6 font-mono text-xs uppercase tracking-[0.2em] opacity-60">The full toolkit</p>
           <div className="grid gap-px overflow-hidden rounded-2xl border border-black/10 bg-black/10 sm:grid-cols-2 lg:grid-cols-4">
             {skillGroups.map((group) => (
-              <div key={group.label} className="bg-[#e9e4d6] p-5 md:p-6">
+              <div key={group.label} className="bg-panel p-5 md:p-6">
                 <h3 className="mb-3 text-sm font-semibold">{group.label}</h3>
                 <ul className="flex flex-wrap gap-1.5">
                   {group.items.map((item) => (

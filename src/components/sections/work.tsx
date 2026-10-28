@@ -12,7 +12,7 @@ function ProjectPanel({ project, index }: { project: Project; index: number }) {
   return (
     <div className="relative flex h-full flex-col justify-between p-5 text-[#f2f1e4] sm:p-7">
       {/* Keeps copy legible over screenshots and bright gradients alike. */}
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/95 from-35% via-black/70 to-black/10" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/95 from-35% via-black/70 to-black/10 lg:bg-linear-to-r lg:from-black/95 lg:from-25% lg:via-black/70 lg:via-50% lg:to-black/0" />
 
       <div className="relative flex items-start justify-between gap-4">
         <span className="font-mono text-xs tracking-[0.2em] opacity-70">{String(index + 1).padStart(2, "0")}</span>
@@ -23,7 +23,7 @@ function ProjectPanel({ project, index }: { project: Project; index: number }) {
         ) : null}
       </div>
 
-      <div className="relative">
+      <div className="relative lg:max-w-xl">
         <h3 className="text-3xl font-medium tracking-[-0.04em] sm:text-4xl">{project.title}</h3>
         <p className="mt-2 max-w-md text-sm opacity-85 sm:text-base">{project.summary}</p>
 
@@ -85,16 +85,16 @@ const items: HoverExpandItem[] = projects.map((p, i) => ({
 export function Work() {
   return (
     <section id="work" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:px-10 md:py-32">
-      <SectionHeading index="02" label="Selected work" title={<>Things I&rsquo;ve shipped.</>}>
+      <SectionHeading title={<>Things I&rsquo;ve shipped.</>}>
         Client work and public repos from{" "}
         <a href={profile.github} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:opacity-100">
           GitHub
         </a>
-        . Hover a panel to open it — or tap on mobile.
+        . Hover a project to open it — or tap on mobile.
       </SectionHeading>
 
       <div className="overflow-hidden rounded-2xl border lg:rounded-3xl">
-        <HoverExpandGallery items={items} height="680px" railWidth={64} maxOpenWidth={760} mobileImageHeight={520} />
+        <HoverExpandGallery items={items} orientation="vertical" mobileImageHeight={500} />
       </div>
     </section>
   )
