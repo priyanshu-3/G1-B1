@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react"
 import { useEffect, useSyncExternalStore } from "react"
 import { PrismaHero } from "@/components/ui/prisma-hero"
 import { About } from "@/components/sections/about"
+import { Activity } from "@/components/sections/activity"
 import { Contact } from "@/components/sections/contact"
 import { Experience } from "@/components/sections/experience"
 import { Skills } from "@/components/sections/skills"
@@ -68,6 +69,7 @@ export default function App() {
       </div>
       <About />
       <Work />
+      <Activity />
       <Skills />
       <Experience />
       <Contact />
