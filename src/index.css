@@ -52,9 +52,6 @@
   * {
     @apply border-border;
   }
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     @apply bg-background text-foreground font-sans antialiased;
     transition: background-color 300ms ease, color 300ms ease;
@@ -71,8 +68,3 @@
   background-size: 220px 220px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}

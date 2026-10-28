@@ -56,6 +56,11 @@ export type HoverExpandGalleryProps = {
   defaultIndex?: number
   /** Open/close duration, in ms. */
   duration?: number
+  /**
+   * How long the mouse has to rest on a panel before it opens, in ms. Sweeping
+   * across the list on the way somewhere else then doesn't flick every panel open.
+   */
+  hoverDelay?: number
   onChange?: (index: number, item: HoverExpandItem) => void
   className?: string
 }
@@ -84,15 +89,26 @@ export default function HoverExpandGallery({
   orientation = "horizontal",
   defaultIndex = 0,
   duration = 620,
+  hoverDelay = 110,
   onChange,
   className = "",
 }: HoverExpandGalleryProps) {
   const [active, setActive] = React.useState(defaultIndex)
+  // Mirrors `active` so a delayed open (below) never compares against a stale render.
+  const activeRef = React.useRef(defaultIndex)
+  const hoverTimer = React.useRef(0)
+  React.useEffect(() => () => window.clearTimeout(hoverTimer.current), [])
 
   const open = (index: number) => {
-    if (index === active) return
+    window.clearTimeout(hoverTimer.current)
+    if (index === activeRef.current) return
+    activeRef.current = index
     setActive(index)
     onChange?.(index, items[index])
+  }
+  const openSoon = (index: number) => {
+    window.clearTimeout(hoverTimer.current)
+    hoverTimer.current = window.setTimeout(() => open(index), hoverDelay)
   }
 
   const rootVars = {
@@ -144,8 +160,9 @@ export default function HoverExpandGallery({
                 aria-current={isActive}
                 aria-label={item.title}
                 onPointerEnter={(event) => {
-                  if (event.pointerType === "mouse") open(index)
+                  if (event.pointerType === "mouse") openSoon(index)
                 }}
+                onPointerLeave={() => window.clearTimeout(hoverTimer.current)}
                 onFocus={() => open(index)}
                 onClick={() => open(index)}
                 className={`group relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foreground/40 ${
@@ -169,7 +186,9 @@ export default function HoverExpandGallery({
                       alt={item.alt ?? item.title}
                       draggable={false}
                       style={{ maxWidth: "none" }}
-                      className="block h-full w-full object-cover object-top"
+                      className={`block h-full w-full object-cover object-top transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                        isActive ? "scale-100" : "scale-[1.08]"
+                      }`}
                     />
                   ) : null}
                 </span>
@@ -185,7 +204,11 @@ export default function HoverExpandGallery({
                   } ${isActive ? "text-foreground" : "text-foreground/40 hover:text-foreground/70"}`}
                 >
                   <span
-                    className={`truncate ${vertical ? "" : "lg:overflow-hidden lg:rotate-180 lg:whitespace-nowrap lg:[writing-mode:vertical-rl]"}`}
+                    className={`truncate ${
+                      vertical
+                        ? `transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isActive ? "translate-x-1.5" : "group-hover:translate-x-1"}`
+                        : "lg:overflow-hidden lg:rotate-180 lg:whitespace-nowrap lg:[writing-mode:vertical-rl]"
+                    }`}
                   >
                     {item.title}
                   </span>
@@ -216,7 +239,11 @@ export default function HoverExpandGallery({
                       : "lg:inset-x-auto lg:inset-y-2 lg:left-[var(--hx-rail)] lg:right-3 lg:h-auto lg:rounded-[10px] lg:transition-opacity"
                   } ${isActive ? "" : "pointer-events-none"}`}
                 >
-                  <div className={`h-full w-full ${vertical ? "" : "lg:w-[calc(var(--hx-max)-var(--hx-rail)-12px)]"}`}>
+                  <div
+                    className={`h-full w-full transition-[opacity,translate] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-y-0 motion-reduce:transition-none ${
+                      isActive ? "translate-y-0 opacity-100 delay-150 duration-700" : "translate-y-4 opacity-0 delay-0 duration-200"
+                    } ${vertical ? "" : "lg:w-[calc(var(--hx-max)-var(--hx-rail)-12px)]"}`}
+                  >
                     {item.content}
                   </div>
                 </div>

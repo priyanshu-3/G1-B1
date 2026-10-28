@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react"
-import { useSyncExternalStore } from "react"
+import { useEffect, useSyncExternalStore } from "react"
 import { PrismaHero } from "@/components/ui/prisma-hero"
 import { About } from "@/components/sections/about"
 import { Contact } from "@/components/sections/contact"
@@ -9,6 +9,7 @@ import { Work } from "@/components/sections/work"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { VenomButton } from "@/components/venom-button"
 import { profile } from "@/data/profile"
+import { scrollToId, startSmoothScroll } from "@/lib/smooth-scroll"
 
 const nav = [
   { label: "About", href: "#about" },
@@ -27,6 +28,7 @@ const subscribe = (cb: () => void) => {
 
 export default function App() {
   const wide = useSyncExternalStore(subscribe, () => matchMedia(desktop).matches)
+  useEffect(() => startSmoothScroll(), [])
   return (
     <main>
       <ThemeToggle />
@@ -49,7 +51,7 @@ export default function App() {
               // The goo only lives inside its stage, so on desktop give it room to reach: taller, and
               // stretched left into the empty video beside the name.
               height={wide ? 440 : 100}
-              onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToId("work")}
               // Transparent stage (it ships with a pale studio backdrop) with the pill pinned bottom-left,
               // where the old CTA sat: the left padding cancels the stretch, and the extra bottom
               // padding (pulled back with a negative margin) leaves room for the goo's contact shadow.

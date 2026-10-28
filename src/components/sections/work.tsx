@@ -94,7 +94,7 @@ export function Work() {
       </SectionHeading>
 
       <div className="overflow-hidden rounded-2xl border lg:rounded-3xl">
-        <HoverExpandGallery items={items} orientation="vertical" mobileImageHeight={500} />
+        <HoverExpandGallery items={items} orientation="vertical" mobileImageHeight={500} duration={760} />
       </div>
     </section>
   )

@@ -2,6 +2,7 @@ import LegoOnboarding from "@/components/ui/interactive-tech-stack-builder"
 import { SectionHeading } from "@/components/section-heading"
 import { profile, skillGroups } from "@/data/profile"
 import { skillModules } from "@/data/skills"
+import { scrollToId } from "@/lib/smooth-scroll"
 
 export function Skills() {
   return (
@@ -20,7 +21,7 @@ export function Skills() {
           emptyLabel="Click a block to stack"
           stackedLabel={(n, total) => `${n} of ${total} stacked`}
           continueLabel="Let's build together →"
-          onComplete={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+          onComplete={() => scrollToId("contact")}
           className="min-h-0"
         />
 
