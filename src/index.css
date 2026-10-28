@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* shadcn-style tokens. The site is dark-only: the hero video, the cream
+   accent and the gallery rails are all tuned against a near-black ground. */
+:root {
+  --background: #0d0d0c;
+  --foreground: #e1e0cc;
+  --card: #151513;
+  --muted: #1c1c19;
+  --muted-foreground: rgba(225, 224, 204, 0.55);
+  --primary: #e1e0cc;
+  --primary-foreground: #0d0d0c;
+  --border: rgba(225, 224, 204, 0.12);
+  --ring: rgba(225, 224, 204, 0.4);
+  --radius: 1rem;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/* Film-grain texture used by the hero. */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
